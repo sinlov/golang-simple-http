@@ -1,0 +1,8 @@
+language: go
+go:
+  - 1.6
+  - tip
+install:
+  - go get -u github.com/sinlov/golang-simple-http
+notifications:
+  email: false
