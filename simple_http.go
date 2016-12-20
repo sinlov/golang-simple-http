@@ -17,7 +17,7 @@ func byte2String(p []byte) string {
 	return string(p)
 }
 
-func Post_String(urlStr string, headParams map[string](string), bodyParams map[string](string)) ([]byte, error) {
+func Post_String(urlStr string, headParams map[string](string), bodyParams map[string](string)) (string, error) {
 	res, err := Post(urlStr, headParams, bodyParams)
 	if err != nil {
 		return "", err
@@ -38,7 +38,7 @@ func Post(urlStr string, headParams map[string](string), bodyParams map[string](
 	}
 	req, err := http.NewRequest("POST", urlStr, strings.NewReader(bodyP))
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	if headParams != nil {
@@ -50,7 +50,7 @@ func Post(urlStr string, headParams map[string](string), bodyParams map[string](
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	return body, err
 }
@@ -75,12 +75,12 @@ func Get(urlStr string, headParams map[string](string)) ([]byte, error) {
 	u.RawQuery = q.Encode()
 	res, err := http.Get(u.String());
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	resByte, err := ioutil.ReadAll(res.Body)
 	res.Body.Close()
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	return resByte, nil
 }
@@ -101,12 +101,12 @@ func Get_Sort(urlStr string, headParams map[string](string)) ([]byte, error) {
 	u.RawQuery = q.Encode()
 	res, err := http.Get(u.String());
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	resByte, err := ioutil.ReadAll(res.Body)
 	res.Body.Close()
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	return resByte, nil
 }
